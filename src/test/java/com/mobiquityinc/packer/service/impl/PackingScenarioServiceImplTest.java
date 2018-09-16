@@ -1,5 +1,6 @@
 package com.mobiquityinc.packer.service.impl;
 
+import com.mobiquityinc.exception.InvalidMaxItemWeightException;
 import com.mobiquityinc.exception.InvalidMaxItemCostException;
 import com.mobiquityinc.exception.InvalidMaxItemCountException;
 import com.mobiquityinc.exception.InvalidMaxPackWeightException;
@@ -71,7 +72,6 @@ public class PackingScenarioServiceImplTest {
 
     @Before
     public void initializeThirdScenario() {
-        PackingObject packingObject = new PackingObject(1, 3, 100);
         Pack pack = new Pack(90);
         List<PackingObject> packingObjects = new ArrayList<>();
         for (int i = 0; i < 16; i++) {
@@ -83,7 +83,7 @@ public class PackingScenarioServiceImplTest {
 
     @Before
     public void initializeFourthScenario() {
-        PackingObject packingObject = new PackingObject(1, 30000, 100);
+        PackingObject packingObject = new PackingObject(1, 300, 100);
         Pack pack = new Pack(90);
         List<PackingObject> packingObjects = new ArrayList<>();
         packingObjects.add(packingObject);
@@ -102,7 +102,7 @@ public class PackingScenarioServiceImplTest {
     }
 
     @Test
-    public void test() {
+    public void testScenario1() {
         when(repositoryMock.loadData(anyString(), anyObject())).thenReturn(Arrays.asList(scenario1));
         packingScenarioServiceImpl.setRepository(repositoryMock);
         List<PackingScenarioDTO> packingScenarios = packingScenarioServiceImpl.getPackingScenarios("test");
@@ -129,8 +129,15 @@ public class PackingScenarioServiceImplTest {
         packingScenarioServiceImpl.getPackingScenarios("test");
     }
 
-    @Test(expected = InvalidMaxItemCostException.class)
+    @Test(expected = InvalidMaxItemWeightException.class)
     public void wrongMaxItemWeight() {
+        when(repositoryMock.loadData(anyString(), anyObject())).thenReturn(Arrays.asList(scenario4));
+        packingScenarioServiceImpl.setRepository(repositoryMock);
+        packingScenarioServiceImpl.getPackingScenarios("test");
+    }
+
+    @Test(expected = InvalidMaxItemCostException.class)
+    public void wrongMaxItemCost() {
         when(repositoryMock.loadData(anyString(), anyObject())).thenReturn(Arrays.asList(scenario5));
         packingScenarioServiceImpl.setRepository(repositoryMock);
         packingScenarioServiceImpl.getPackingScenarios("test");

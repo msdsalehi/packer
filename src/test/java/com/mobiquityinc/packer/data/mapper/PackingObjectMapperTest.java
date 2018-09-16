@@ -12,7 +12,7 @@ import org.junit.Test;
  */
 public class PackingObjectMapperTest {
 
-    PackingObjectMapper mapper = new PackingObjectMapper();
+    private PackingObjectMapper mapper = new PackingObjectMapper();
 
     @Test
     public void testFromDTO() {

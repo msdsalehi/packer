@@ -48,35 +48,35 @@ public class PackerServiceImplTest {
     }
 
     @Test
-    public void testPackFirst() {
+    public void testPackedItem() {
         List<PackingObjectDTO> packed = packerService.pack(firstScenario.getPackDTO(),
                 firstScenario.getObjectsToPack());
         assertTrue(packed.size() == 1);
         assertTrue(packed.get(0).getIndex() == 4);
-        int maxCost = getMaxCostPossible(packed);
+        int maxCost = getMaxPossibleCost(packed);
         assertTrue(maxCost == 40);
     }
 
     @Test
-    public void testPackSecond() {
+    public void testPackedItemsCount() {
         List<PackingObjectDTO> packed = packerService.pack(secondScenario.getPackDTO(),
                 secondScenario.getObjectsToPack());
         assertTrue(packed.size() == 2);
     }
 
     @Test
-    public void testPackThird() {
+    public void testMaxPossibleCost() {
         List<PackingObjectDTO> packed = packerService.pack(thirdScenario.getPackDTO(),
                 thirdScenario.getObjectsToPack());
         assertTrue(packed.size() == 1);
-        int maxCost = getMaxCostPossible(packed);
+        int maxCost = getMaxPossibleCost(packed);
         assertTrue(maxCost == 100);
     }
 
-    private int getMaxCostPossible(List<PackingObjectDTO> packed) {
+    private int getMaxPossibleCost(List<PackingObjectDTO> packed) {
         int maxCost = 0;
-        for (PackingObjectDTO packingObjectDTO : packed) {
-            maxCost += packingObjectDTO.getCost();
+        for (PackingObjectDTO packedObjectDTO : packed) {
+            maxCost += packedObjectDTO.getCost();
         }
         return maxCost;
     }
