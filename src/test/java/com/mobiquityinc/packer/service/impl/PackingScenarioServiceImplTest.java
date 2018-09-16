@@ -83,7 +83,7 @@ public class PackingScenarioServiceImplTest {
 
     @Before
     public void initializeFourthScenario() {
-        PackingObject packingObject = new PackingObject(1, 300, 100);
+        PackingObject packingObject = new PackingObject(1, 30000, 100);
         Pack pack = new Pack(90);
         List<PackingObject> packingObjects = new ArrayList<>();
         packingObjects.add(packingObject);
